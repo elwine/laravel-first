@@ -11,5 +11,11 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Install Laravel CLI
+RUN composer global require laravel/installer
+
+# Add Composer global bin to PATH
+ENV PATH="/root/.composer/vendor/bin:${PATH}"
+
 # Set working directory
 WORKDIR /workspace
